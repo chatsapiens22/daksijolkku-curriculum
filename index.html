@@ -26,9 +26,10 @@
   body{
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Pretendard","Malgun Gothic",sans-serif;
     background:
-      radial-gradient(900px 600px at 88% -8%, rgba(94,234,212,.16), transparent 60%),
-      radial-gradient(800px 600px at -6% 108%, rgba(249,115,98,.12), transparent 58%),
-      var(--paper);
+      radial-gradient(900px 600px at 88% -8%, rgba(94,234,212,.14), transparent 60%),
+      radial-gradient(800px 600px at -6% 108%, rgba(249,115,98,.10), transparent 58%),
+      #0b1f1c;
+    background-attachment:fixed;
     color:var(--ink); line-height:1.62; -webkit-font-smoothing:antialiased;
   }
   .progress{position:fixed;top:0;left:0;height:4px;width:0;background:linear-gradient(90deg,var(--teal),var(--coral));z-index:120;transition:width .15s ease;}
@@ -43,7 +44,7 @@
 
   .deck{max-width:1080px;margin:0 auto;padding:0 22px;}
   .slide{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:84px 0 72px;position:relative;}
-  .slide + .slide{border-top:1px dashed var(--line);}
+  .slide + .slide{border-top:1px dashed rgba(94,234,212,.14);}
   .card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:46px 48px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
   .card::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:linear-gradient(90deg,var(--teal),var(--teal-light) 55%,var(--coral));}
 
@@ -140,7 +141,7 @@
     .has-guide{padding-right:32px;}
   }
 
-  .footer{text-align:center;padding:40px 0 60px;color:var(--muted);font-size:.82rem;}
+  .footer{text-align:center;padding:40px 0 60px;color:rgba(234,255,251,.45);font-size:.82rem;}
 
   @media(max-width:760px){
     .card{padding:32px 24px;}
@@ -174,10 +175,10 @@
         <div class="txt">
           <span class="kicker">닥시졸꾸 · 제25기 커리큘럼(안)</span>
           <h1>8주 만에 완성하는<br><span style="color:var(--teal-dark)">AI 콘텐츠 크리에이터</span></h1>
-          <p class="lead">2026.6.29.(월) 개강 예정 · 월/목 주 2회 · 총 16강.<br>
+          <p class="lead">2026.6.29.(월) 개강 예정 · <b>월·목 저녁 8시부터 2시간</b> · 총 16강.<br>
             <b>AI 도구 → 브랜딩 → 콘텐츠 전략 → 글쓰기 → 멀티미디어 → 자동화·수익화</b> 순으로 실행력을 쌓는 설계.</p>
           <div class="stat">
-            <div class="b"><div class="num">8<span style="font-size:1.2rem">주</span></div><div class="lab">월·목 주 2회</div></div>
+            <div class="b"><div class="num">8<span style="font-size:1.2rem">주</span></div><div class="lab">월·목 저녁 8시·2h</div></div>
             <div class="b"><div class="num">16<span style="font-size:1.2rem">강</span></div><div class="lab">5개 Phase</div></div>
             <div class="b"><div class="num c">7</div><div class="lab">학습 트랙</div></div>
           </div>
