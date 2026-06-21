@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>제25기 닥시졸꾸 커리큘럼(안) — 8주 16강</title>
+<style>
+  :root{
+    --teal:#0d9488; --teal-dark:#0f766e; --teal-light:#5eead4; --teal-bg:#f0fdfa;
+    --coral:#f97362; --coral-dark:#e2533f; --coral-light:#ffd9d2;
+    --ink:#0f2e2b; --ink-soft:#3c5752; --muted:#7c938e;
+    --paper:#fbfcfb; --card:#ffffff; --line:#dce7e4;
+    --shadow:0 14px 40px -18px rgba(13,148,136,.40);
+    --shadow-soft:0 8px 24px -16px rgba(15,46,43,.30);
+    /* 7개 트랙 색 (원본 커리큘럼 유지) */
+    --ai:#4a90e2; --ai-bg:#eaf2fc;
+    --strat:#9b59b6; --strat-bg:#f3eaf8;
+    --write:#27ae60; --write-bg:#e6f5ec;
+    --video:#e67e22; --video-bg:#fcefe0;
+    --media:#e91e63; --media-bg:#fce4ec;
+    --auto:#16a085; --auto-bg:#e4f6f2;
+    --money:#c0392b; --money-bg:#fbeae7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Pretendard","Malgun Gothic",sans-serif;
+    background:
+      radial-gradient(900px 600px at 88% -8%, rgba(94,234,212,.16), transparent 60%),
+      radial-gradient(800px 600px at -6% 108%, rgba(249,115,98,.12), transparent 58%),
+      var(--paper);
+    color:var(--ink); line-height:1.62; -webkit-font-smoothing:antialiased;
+  }
+  .progress{position:fixed;top:0;left:0;height:4px;width:0;background:linear-gradient(90deg,var(--teal),var(--coral));z-index:120;transition:width .15s ease;}
+  .topbar{position:fixed;top:14px;right:18px;z-index:110;display:flex;gap:8px;align-items:center;
+    background:rgba(255,255,255,.85);backdrop-filter:blur(8px);border:1px solid var(--line);
+    padding:7px 12px;border-radius:999px;box-shadow:var(--shadow-soft);font-size:.78rem;color:var(--ink-soft);}
+  .topbar b{color:var(--teal-dark);font-variant-numeric:tabular-nums;}
+  .navbtn{cursor:pointer;border:none;background:var(--teal);color:#fff;width:30px;height:30px;border-radius:50%;
+    font-size:1rem;line-height:1;display:grid;place-items:center;transition:transform .12s,background .2s;}
+  .navbtn:hover{background:var(--teal-dark);transform:translateY(-1px);}
+  .navbtn:active{transform:scale(.92);}
+
+  .deck{max-width:1080px;margin:0 auto;padding:0 22px;}
+  .slide{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:84px 0 72px;position:relative;}
+  .slide + .slide{border-top:1px dashed var(--line);}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:46px 48px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
+  .card::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:linear-gradient(90deg,var(--teal),var(--teal-light) 55%,var(--coral));}
+
+  .kicker{display:inline-flex;align-items:center;gap:8px;font-size:.74rem;font-weight:800;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--teal-dark);background:var(--teal-bg);
+    border:1px solid var(--teal-light);padding:6px 13px;border-radius:999px;margin-bottom:20px;}
+  .snum{font-size:.72rem;font-weight:700;color:var(--muted);position:absolute;top:18px;right:24px;letter-spacing:.05em;}
+  h1{font-size:2.55rem;line-height:1.16;letter-spacing:-.02em;margin-bottom:18px;}
+  h2{font-size:1.95rem;line-height:1.22;letter-spacing:-.015em;margin-bottom:14px;}
+  h2 .ac{color:var(--coral-dark);}
+  h2 .at{color:var(--teal-dark);}
+  .lead{font-size:1.1rem;color:var(--ink-soft);max-width:66ch;}
+
+  .stat{display:flex;gap:26px;flex-wrap:wrap;margin-top:30px;}
+  .stat .b{flex:1;min-width:160px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px;text-align:center;box-shadow:var(--shadow-soft);}
+  .stat .num{font-size:2.3rem;font-weight:800;color:var(--teal-dark);line-height:1;letter-spacing:-.02em;}
+  .stat .num.c{color:var(--coral-dark);}
+  .stat .lab{font-size:.85rem;color:var(--muted);margin-top:8px;}
+
+  .flow{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:8px;font-size:.92rem;}
+  .chip{background:#fff;border:1px solid var(--line);border-radius:12px;padding:9px 14px;font-weight:700;color:var(--ink);box-shadow:var(--shadow-soft);}
+  .chip.t{border-color:var(--teal-light);background:var(--teal-bg);color:var(--teal-dark);}
+  .chip.c{border-color:var(--coral-light);background:#fff5f3;color:var(--coral-dark);}
+  .arr{color:var(--muted);font-weight:800;}
+  .note{margin-top:26px;background:#fffaf4;border:1px solid #ffe2c2;border-left:4px solid #f5a623;border-radius:12px;padding:14px 18px;font-size:.92rem;color:#7a5a25;}
+  .note b{color:#9a6a18;}
+
+  /* 트랙 범례 */
+  .legend{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:10px;}
+  .leg{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px 18px;box-shadow:var(--shadow-soft);}
+  .leg .dot{width:16px;height:16px;border-radius:5px;margin-top:4px;flex:none;}
+  .leg h4{font-size:1rem;margin-bottom:2px;}
+  .leg p{font-size:.86rem;color:var(--muted);}
+
+  /* 강의 그리드 */
+  .lez-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:8px;}
+  .lez{background:#fff;border:1px solid var(--line);border-left:4px solid var(--c,#0d9488);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow-soft);}
+  .lez .meta{display:flex;gap:6px;align-items:center;margin-bottom:8px;flex-wrap:wrap;}
+  .lez .day{font-size:.72rem;font-weight:800;background:var(--teal-bg);color:var(--teal-dark);padding:3px 9px;border-radius:6px;border:1px solid var(--teal-light);}
+  .lez .cat{font-size:.68rem;font-weight:800;padding:3px 9px;border-radius:6px;}
+  .lez h4{font-size:1.08rem;margin-bottom:4px;color:var(--ink);}
+  .lez .who{font-size:.84rem;color:var(--muted);}
+  .lez .who::before{content:"👤 ";opacity:.6;}
+
+  /* 트랙 색 매핑 */
+  .t-ai{--c:var(--ai);} .t-ai .cat{background:var(--ai-bg);color:var(--ai);}
+  .t-strat{--c:var(--strat);} .t-strat .cat{background:var(--strat-bg);color:var(--strat);}
+  .t-write{--c:var(--write);} .t-write .cat{background:var(--write-bg);color:var(--write);}
+  .t-video{--c:var(--video);} .t-video .cat{background:var(--video-bg);color:var(--video);}
+  .t-media{--c:var(--media);} .t-media .cat{background:var(--media-bg);color:var(--media);}
+  .t-auto{--c:var(--auto);} .t-auto .cat{background:var(--auto-bg);color:var(--auto);}
+  .t-money{--c:var(--money);} .t-money .cat{background:var(--money-bg);color:var(--money);}
+
+  .pweek{display:inline-block;font-size:.8rem;font-weight:700;color:var(--coral-dark);background:#fff5f3;border:1px solid var(--coral-light);padding:3px 10px;border-radius:999px;margin-left:8px;vertical-align:middle;}
+
+  .meta-flip{background:linear-gradient(135deg,var(--ink),#123a35);color:#eafffb;border:none;}
+  .meta-flip::before{background:linear-gradient(90deg,var(--coral),var(--teal-light));}
+  .meta-flip .kicker{background:rgba(255,255,255,.08);border-color:rgba(94,234,212,.4);color:var(--teal-light);}
+  .meta-flip h2{color:#fff;}
+  .meta-flip .lead{color:#bfe9e1;}
+  .meta-flip .snum{color:rgba(255,255,255,.4);}
+  .cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px;}
+  .cta .c1{flex:1;min-width:200px;background:rgba(255,255,255,.06);border:1px solid rgba(94,234,212,.3);border-radius:16px;padding:18px 20px;}
+  .cta .c1 .t{font-weight:800;color:var(--teal-light);font-size:1.02rem;margin-bottom:4px;}
+  .cta .c1 p{font-size:.92rem;color:#bfe9e1;}
+
+  /* 표지 split (좌 텍스트 / 우 이미지) */
+  .card.cover{padding:0;overflow:hidden;}
+  .cover-split{display:grid;grid-template-columns:1.02fr .98fr;align-items:stretch;}
+  .cover-split .txt{padding:48px 44px;display:flex;flex-direction:column;justify-content:center;}
+  .cover-split .img{position:relative;min-height:600px;background:var(--teal-bg);}
+  .cover-split .img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 28%;}
+  .cover-split .stat{margin-top:26px;gap:14px;}
+  .cover-split .stat .b{min-width:0;padding:16px 10px;}
+  .cover-split .stat .num{font-size:1.9rem;}
+
+  /* s2·7·9 화보 split */
+  .card.has-img{padding:0;overflow:hidden;}
+  .has-img .split{display:grid;grid-template-columns:1.08fr .92fr;align-items:stretch;}
+  .has-img .split .body{padding:42px 44px;display:flex;flex-direction:column;justify-content:center;}
+  .has-img .split .pic{position:relative;min-height:600px;background:var(--teal-bg);}
+  .has-img .split .pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 30%;}
+  .has-img.meta-flip .split .body{color:#eafffb;}
+
+  /* 가이드 캐릭터 (정보 슬라이드 우측) */
+  .guide{position:absolute;right:18px;bottom:0;height:360px;z-index:4;pointer-events:none;
+    filter:drop-shadow(0 14px 22px rgba(15,46,43,.22));}
+  .has-guide{padding-right:210px;}
+
+  @media(max-width:760px){
+    .has-img .split{grid-template-columns:1fr;}
+    .has-img .split .pic{min-height:300px;order:-1;}
+    .guide{display:none;}
+    .has-guide{padding-right:32px;}
+  }
+
+  .footer{text-align:center;padding:40px 0 60px;color:var(--muted);font-size:.82rem;}
+
+  @media(max-width:760px){
+    .card{padding:32px 24px;}
+    h1{font-size:1.9rem;} h2{font-size:1.5rem;}
+    .legend,.lez-grid{grid-template-columns:1fr;}
+    .stat .b{min-width:130px;}
+    .topbar{top:10px;right:10px;}
+  }
+  @media print{
+    .topbar,.progress{display:none;}
+    .slide{min-height:auto;page-break-after:always;padding:30px 0;}
+    body{background:#fff;}
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="prog"></div>
+<div class="topbar">
+  <span>슬라이드 <b id="cur">1</b> / <b>9</b></span>
+  <button class="navbtn" onclick="go(-1)" aria-label="이전">↑</button>
+  <button class="navbtn" onclick="go(1)" aria-label="다음">↓</button>
+</div>
+
+<div class="deck">
+
+  <!-- 1. 표지 -->
+  <section class="slide" id="s1">
+    <div class="card cover">
+      <div class="cover-split">
+        <div class="txt">
+          <span class="kicker">닥시졸꾸 · 제25기 커리큘럼(안)</span>
+          <h1>8주 만에 완성하는<br><span style="color:var(--teal-dark)">AI 콘텐츠 크리에이터</span></h1>
+          <p class="lead">2026.6.29.(월) 개강 예정 · 월/목 주 2회 · 총 16강.<br>
+            <b>AI 도구 → 브랜딩 → 콘텐츠 전략 → 글쓰기 → 멀티미디어 → 자동화·수익화</b> 순으로 실행력을 쌓는 설계.</p>
+          <div class="stat">
+            <div class="b"><div class="num">8<span style="font-size:1.2rem">주</span></div><div class="lab">월·목 주 2회</div></div>
+            <div class="b"><div class="num">16<span style="font-size:1.2rem">강</span></div><div class="lab">5개 Phase</div></div>
+            <div class="b"><div class="num c">7</div><div class="lab">학습 트랙</div></div>
+          </div>
+        </div>
+        <div class="img"><img src="cover_recraft_a.png" alt="AI 콘텐츠 크리에이터"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. 전체 흐름 -->
+  <section class="slide" id="s2">
+    <div class="card has-img">
+      <div class="split">
+        <div class="body">
+          <span class="kicker">전체 학습 흐름</span>
+          <h2>도구에서 <span class="at">수익화</span>까지, <span class="ac">한 방향</span>으로</h2>
+          <div class="flow">
+            <span class="chip t">AI 도구</span><span class="arr">→</span>
+            <span class="chip">브랜딩</span><span class="arr">→</span>
+            <span class="chip">콘텐츠 전략</span><span class="arr">→</span>
+            <span class="chip">글쓰기</span><span class="arr">→</span>
+            <span class="chip">플랫폼</span><span class="arr">→</span>
+            <span class="chip">멀티미디어</span><span class="arr">→</span>
+            <span class="chip">코딩·자동화</span><span class="arr">→</span>
+            <span class="chip c">지역 수익화</span>
+          </div>
+          <div class="note">
+            <b>핵심 원리</b> — AI 도구 활용법을 먼저 익힌 뒤 나만의 브랜딩으로 방향을 잡고, 콘텐츠 마케팅 구조 설계와 글쓰기로 실행 기반을 만든다. 이후 유튜브·멀티미디어·바이브코딩까지 확장하고, 마지막에 지역모임 수익화로 실행 모델을 완성한다.
+          </div>
+        </div>
+        <div class="pic"><img src="img_s2.png" alt="학습 흐름"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. 트랙 범례 -->
+  <section class="slide" id="s3">
+    <div class="card has-guide">
+      <span class="snum">03</span>
+      <span class="kicker">7개 학습 트랙</span>
+      <h2>색으로 구분하는 <span class="at">학습 영역</span></h2>
+      <div class="legend">
+        <div class="leg"><span class="dot" style="background:var(--ai)"></span><div><h4>AI 도구 기초</h4><p>ChatGPT·구글 AI툴 등 작업 환경 세팅</p></div></div>
+        <div class="leg"><span class="dot" style="background:var(--strat)"></span><div><h4>콘텐츠 전략·기획</h4><p>콘텐츠 마케팅 구조 설계</p></div></div>
+        <div class="leg"><span class="dot" style="background:var(--write)"></span><div><h4>글쓰기·브랜딩</h4><p>브랜딩·블로그·전자책</p></div></div>
+        <div class="leg"><span class="dot" style="background:var(--video)"></span><div><h4>영상 제작</h4><p>스크립트·숏폼·공모전 전략</p></div></div>
+        <div class="leg"><span class="dot" style="background:var(--media)"></span><div><h4>이미지·음악 생성</h4><p>이미지 생성·Suno 음원</p></div></div>
+        <div class="leg"><span class="dot" style="background:var(--auto)"></span><div><h4>코딩·업무자동화</h4><p>바이브코딩·업무자동화</p></div></div>
+        <div class="leg"><span class="dot" style="background:var(--money)"></span><div><h4>플랫폼 수익화</h4><p>유튜브·롱폼·지역모임</p></div></div>
+        <div class="leg" style="background:var(--teal-bg);border-color:var(--teal-light)"><span class="dot" style="background:linear-gradient(135deg,var(--teal),var(--coral))"></span><div><h4>8주 통합 여정</h4><p>7개 트랙이 한 흐름으로 연결</p></div></div>
+      </div>
+      <img class="guide" src="char_present_cut.png" alt="">
+    </div>
+  </section>
+
+  <!-- 4. Phase 1 -->
+  <section class="slide" id="s4">
+    <div class="card has-guide">
+      <span class="snum">04</span>
+      <span class="kicker">Phase 1<span class="pweek">1~2주차</span></span>
+      <h2>🛠️ AI 도구를 익히고, <span class="at">나만의 방향</span>을 잡는다</h2>
+      <p class="lead">어떤 콘텐츠든 AI 도구 활용력이 베이스다. 작업 환경을 먼저 세팅하고, 나만의 브랜딩으로 메시지·상품성을 정한 뒤 콘텐츠 마케팅 구조로 실행 방향을 구체화한다. <b>도구 → 브랜딩 → 전략</b>.</p>
+      <div class="lez-grid">
+        <div class="lez t-ai"><div class="meta"><span class="day">1주 월</span><span class="cat">AI 도구 기초</span></div><h4>ChatGPT 활용</h4><div class="who">김현민</div></div>
+        <div class="lez t-strat"><div class="meta"><span class="day">1주 목</span><span class="cat">콘텐츠 전략·기획</span></div><h4>콘텐츠 마케팅 구조 설계</h4><div class="who">이유신</div></div>
+        <div class="lez t-ai"><div class="meta"><span class="day">2주 월</span><span class="cat">AI 도구 기초</span></div><h4>구글 AI툴 실전</h4><div class="who">오유정</div></div>
+        <div class="lez t-write"><div class="meta"><span class="day">2주 목</span><span class="cat">글쓰기·브랜딩</span></div><h4>나만의 브랜딩 (에피파니)</h4><div class="who">오유정</div></div>
+      </div>
+      <img class="guide" src="char_welcome_cut.png" alt="">
+    </div>
+  </section>
+
+  <!-- 5. Phase 2 -->
+  <section class="slide" id="s5">
+    <div class="card has-guide">
+      <span class="snum">05</span>
+      <span class="kicker">Phase 2<span class="pweek">3~4주차</span></span>
+      <h2>✍️ 전자책과 유튜브로 <span class="ac">팔리는 기반</span>을 만든다</h2>
+      <p class="lead">브랜딩과 전략을 잡은 뒤엔 글쓰기 결과물을 만든다. 블로그로 지속 발행의 기초를, 전자책으로 상품화 감각을 익히고, 유튜브 채널 최적화와 롱폼으로 플랫폼 운영과 깊이를 연결한다. <b>블로그 → 전자책 → 채널 → 롱폼</b>.</p>
+      <div class="lez-grid">
+        <div class="lez t-write"><div class="meta"><span class="day">3주 월</span><span class="cat">글쓰기·브랜딩</span></div><h4>블로그 작성</h4><div class="who">정호영</div></div>
+        <div class="lez t-write"><div class="meta"><span class="day">3주 목</span><span class="cat">글쓰기·브랜딩</span></div><h4>팔리는 전자책</h4><div class="who">최향기</div></div>
+        <div class="lez t-money"><div class="meta"><span class="day">4주 월</span><span class="cat">플랫폼 수익화</span></div><h4>유튜브 채널 최적화</h4><div class="who">고현미</div></div>
+        <div class="lez t-money"><div class="meta"><span class="day">4주 목</span><span class="cat">플랫폼 수익화</span></div><h4>롱폼 제작</h4><div class="who">정호영</div></div>
+      </div>
+      <img class="guide" src="char_thumbs_cut.png" alt="">
+    </div>
+  </section>
+
+  <!-- 6. Phase 3 -->
+  <section class="slide" id="s6">
+    <div class="card has-guide">
+      <span class="snum">06</span>
+      <span class="kicker">Phase 3<span class="pweek">5~6주차</span></span>
+      <h2>🎬 이미지·영상 실행력 + <span class="ac">공모전 전략</span></h2>
+      <p class="lead">브랜드와 채널이 잡힌 뒤엔 제작 역량을 끌어올린다. 이미지로 시각 자산을 만들고, 스크립트·숏폼 트렌드로 제작 감각을 익힌 뒤 공모전 전략으로 외부 성과까지 노린다. <b>시각 자산 → 스크립트 → 숏폼 → 공모전</b>.</p>
+      <div class="lez-grid">
+        <div class="lez t-media"><div class="meta"><span class="day">5주 월</span><span class="cat">이미지·음악 생성</span></div><h4>이미지 생성</h4><div class="who">이주희</div></div>
+        <div class="lez t-video"><div class="meta"><span class="day">5주 목</span><span class="cat">영상 제작</span></div><h4>영상 스크립트</h4><div class="who">이영선</div></div>
+        <div class="lez t-video"><div class="meta"><span class="day">6주 월</span><span class="cat">영상 제작</span></div><h4>숏폼 트렌드</h4><div class="who">이영선</div></div>
+        <div class="lez t-video"><div class="meta"><span class="day">6주 목</span><span class="cat">영상 제작</span></div><h4>영상 공모전 전략</h4><div class="who">이영선</div></div>
+      </div>
+      <img class="guide" src="char_camera_cut.png" alt="">
+    </div>
+  </section>
+
+  <!-- 7. Phase 4 -->
+  <section class="slide" id="s7">
+    <div class="card has-img">
+      <div class="split">
+        <div class="body">
+          <span class="kicker">Phase 4<span class="pweek">7주차</span></span>
+          <h2>🎵 음악 수익화와 <span class="at">바이브코딩</span>으로 확장</h2>
+          <p class="lead">이미지·영상을 경험한 뒤엔 음악과 코드 기반 제작으로 넓힌다. Suno 음원 수익화로 수익 모델을 넓히고, 바이브코딩 입문으로 아이디어를 작은 도구·자동화로 구현하는 출발점을 만든다.</p>
+          <div class="lez-grid" style="grid-template-columns:1fr">
+            <div class="lez t-media"><div class="meta"><span class="day">7주 월</span><span class="cat">이미지·음악 생성</span></div><h4>Suno 음악 및 음원 수익화</h4><div class="who">한정희</div></div>
+            <div class="lez t-auto"><div class="meta"><span class="day">7주 목</span><span class="cat">코딩·업무자동화</span></div><h4>바이브코딩 입문</h4><div class="who">김민철</div></div>
+          </div>
+        </div>
+        <div class="pic"><img src="img_s7.png" alt="음악·바이브코딩"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Phase 5 -->
+  <section class="slide" id="s8">
+    <div class="card has-guide">
+      <span class="snum">08</span>
+      <span class="kicker">Phase 5<span class="pweek">8주차</span></span>
+      <h2>⚙️ 업무자동화 + <span class="ac">지역 수익화</span>로 마무리</h2>
+      <p class="lead">마지막 주차는 배운 내용을 반복 가능한 실행 시스템으로 바꾼다. 업무자동화로 제작·운영 시간을 줄이고, 당근 지역모임 수익화로 오프라인 기반 실행 모델까지 연결한다. <b>자동화 → 지역 수익화</b>로 여정을 닫는다.</p>
+      <div class="lez-grid">
+        <div class="lez t-auto"><div class="meta"><span class="day">8주 월</span><span class="cat">코딩·업무자동화</span></div><h4>업무자동화</h4><div class="who">김민철</div></div>
+        <div class="lez t-money"><div class="meta"><span class="day">8주 목</span><span class="cat">플랫폼 수익화</span></div><h4>당근 지역모임 수익화</h4><div class="who">이미경‧나만열</div></div>
+      </div>
+      <img class="guide" src="char_present_cut.png" alt="">
+    </div>
+  </section>
+
+  <!-- 9. 마무리 -->
+  <section class="slide" id="s9">
+    <div class="card meta-flip has-img">
+      <div class="split">
+        <div class="body">
+          <span class="kicker">함께 시작하기</span>
+          <h2>8주 뒤, 당신은 <span style="color:var(--teal-light)">콘텐츠로 수익을 내는 사람</span></h2>
+          <p class="lead">도구 → 브랜딩 → 전략 → 글쓰기 → 멀티미디어 → 자동화 → 지역 수익화.<br>16강 한 흐름으로, 배운 것이 곧바로 내 콘텐츠와 수익 모델이 됩니다.</p>
+          <div class="cta">
+            <div class="c1"><div class="t">개강</div><p>2026.6.29.(월) · 월/목 주 2회 · 8주 16강</p></div>
+            <div class="c1"><div class="t">구성</div><p>5개 Phase · 7개 학습 트랙 · 실행 중심 커리큘럼</p></div>
+          </div>
+        </div>
+        <div class="pic"><img src="img_s9.png" alt="새로운 시작"></div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="footer">제25기 닥시졸꾸 커리큘럼(안) · 2026.6.29 개강 예정 · 일정·강사는 사정에 따라 변동될 수 있습니다.</div>
+
+<script>
+  const slides=[...document.querySelectorAll('.slide')];
+  const prog=document.getElementById('prog'), cur=document.getElementById('cur');
+  function upd(){
+    const h=document.documentElement;
+    const max=h.scrollHeight-h.clientHeight;
+    prog.style.width=(max>0?(h.scrollTop/max*100):0)+'%';
+    let idx=0;
+    slides.forEach((s,i)=>{ if(s.getBoundingClientRect().top < window.innerHeight*0.5) idx=i; });
+    cur.textContent=idx+1;
+  }
+  function go(d){
+    const i=(+cur.textContent-1)+d;
+    if(slides[i]) slides[i].scrollIntoView({behavior:'smooth'});
+  }
+  addEventListener('scroll',upd,{passive:true});
+  addEventListener('resize',upd);
+  upd();
+</script>
+</body>
+</html>
